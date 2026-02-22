@@ -1,4 +1,4 @@
-FROM nvidia/cuda:12.9.1-cudnn-runtime-ubuntu24.04
+FROM nvidia/cuda:12.8.0-cudnn-runtime-ubuntu24.04
 
 # #install dependencies python 3.12
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -19,17 +19,18 @@ USER jupyter
 RUN python3.12 -m venv /home/jupyter/.venv
 ENV PATH="/home/jupyter/.venv/bin:$PATH"
 
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir \
+      torch torchvision torchaudio \
+      --index-url https://download.pytorch.org/whl/cu128
 
 # Upgrade pip & install JupyterLab
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir \
-        jupyterlab  \
+        jupyterlab  ipywidgets \
         transformers diffusers xformers \
         bitsandbytes peft trl
 
-RUN pip install --no-cache-dir \
-        torch torchvision torchaudio \
-        --index-url https://download.pytorch.org/whl/cu128
         
 WORKDIR /app
 RUN chown jupyter:jupyter /app
