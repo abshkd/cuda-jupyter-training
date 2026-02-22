@@ -10,7 +10,7 @@ GPU-enabled JupyterLab with PyTorch (cu130), Transformers, Diffusers, and more.
 
  **Run with GPU:**
 ```bash
-docker run -it --rm --gpus all -p 8888:8888 abshkd/cuda-jupyter-train:cuda12-py312-torch210
+docker run -it --rm --gpus all -p 8888:8888 abshkd/cuda-jupyter-train:cuda128-py312-torch210
 ```
 
 
